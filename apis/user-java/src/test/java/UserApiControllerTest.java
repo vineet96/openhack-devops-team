@@ -115,5 +115,6 @@ public class UserApiControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         return mapper.writeValueAsBytes(object);
+        
     }
 }
