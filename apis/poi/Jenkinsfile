@@ -17,19 +17,9 @@ pipeline {
 
         stage('Test') {
             steps {
-               dir("${env.SRC_DIR}/tests/UnitTests") {
-                   sh 'dotnet test "UnitTests.csproj" --no-restore --no-build --configuration Release'
+                dir("${env.SRC_DIR}/tests/UnitTests") {
+                    sh 'dotnet test "UnitTests.csproj" --no-restore --no-build --configuration Release'
                 }
-
-                script {
-                    properties([[$class: 'GithubProjectProperty',
-                                projectUrlStr: 'https://github.com/vineet96/openhack-devops-team']])
-                }
-
-                step([$class: 'GitHubIssueNotifier',
-                    issueAppend: true,
-                    issueLabel: '',
-                    issueTitle: '$JOB_NAME $BUILD_DISPLAY_NAME failed'])
             }
         }
 
@@ -50,5 +40,19 @@ pipeline {
                }
            }
        }
+
+        post {
+            failure {
+                script {
+                    properties([[$class: 'GithubProjectProperty',
+                                projectUrlStr: 'https://github.com/vineet96/openhack-devops-team']])
+                }
+
+                step([$class: 'GitHubIssueNotifier',
+                    issueAppend: true,
+                    issueLabel: '',
+                    issueTitle: '$JOB_NAME $BUILD_DISPLAY_NAME failed'])
+            }
+        }
     }
 }
