@@ -17,7 +17,9 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo 'Testing... a sep file'
+               dir("${env.SRC_DIR}/tests/UnitTests") {
+                   sh 'dotnet test "UnitTests.csproj" --no-restore --no-build'
+               }
             }
         }
 
