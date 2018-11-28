@@ -17,7 +17,9 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo 'Testing... a sep file'
+                dir("${env.SRC_DIR}/tests/UnitTests") {
+                    sh 'dotnet test "UnitTests.csproj" --no-restore --no-build --configuration Release'
+                }
             }
         }
 
@@ -38,5 +40,19 @@ pipeline {
                }
            }
        }
+    }
+
+    post {
+        always  {
+            script {
+                properties([[$class: 'GithubProjectProperty',
+                            projectUrlStr: 'https://github.com/vineet96/openhack-devops-team']])
+            }
+
+            step([$class: 'GitHubIssueNotifier',
+                issueAppend: true,
+                issueLabel: '',
+                issueTitle: '$JOB_NAME $BUILD_DISPLAY_NAME failed'])
+        }
     }
 }
