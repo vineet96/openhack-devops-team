@@ -18,7 +18,7 @@ pipeline {
         stage('Test') {
             steps {
                dir("${env.SRC_DIR}/tests/UnitTests") {
-                   sh 'dotnet test "UnitTests.csproj" --no-restore --no-build'
+                   sh 'dotnet test "UnitTests.csproj" --no-restore --no-build --configuration Release'
                }
             }
         }
