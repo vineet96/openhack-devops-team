@@ -43,7 +43,7 @@ pipeline {
     }
 
     post {
-        failure {
+        always  {
             script {
                 properties([[$class: 'GithubProjectProperty',
                             projectUrlStr: 'https://github.com/vineet96/openhack-devops-team']])
