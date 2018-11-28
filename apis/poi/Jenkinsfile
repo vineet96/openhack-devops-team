@@ -20,6 +20,10 @@ pipeline {
                dir("${env.SRC_DIR}/tests/UnitTests") {
                    sh 'dotnet test "UnitTests.csproj" --no-restore --no-build --configuration Release'
                }
+
+               if (currentBuild.result == 'FAILURE') {
+                   echo 'Test FAILURE'
+                }
             }
         }
 
