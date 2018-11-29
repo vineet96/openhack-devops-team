@@ -26,13 +26,13 @@ spec:
          livenessProbe:
            httpGet:
              path: /api/healthcheck/poi
-             port: {{ .Values.image.containerPort }}
-        initialDelaySeconds: 10
+             port: {{ .Values.image.containerPort }}             
+           initialDelaySeconds: 10
            periodSeconds: 30
         readinessProbe:
            httpGet:
              path: /api/healthcheck/poi
-             port: {{ .Values.image.containerPort }}
+             port: {{ .Values.image.containerPort }}             
            initialDelaySeconds: 5
            periodSeconds: 5
         ports:
