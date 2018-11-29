@@ -30,11 +30,11 @@ spec:
            initialDelaySeconds: 10
            periodSeconds: 30
         readinessProbe:
-           httpGet:
+          httpGet:
              path: /api/healthcheck/poi
              port: {{ .Values.image.containerPort }}             
-           initialDelaySeconds: 5
-           periodSeconds: 5
+          initialDelaySeconds: 5
+          periodSeconds: 5
         ports:
           - containerPort: {{ .Values.image.containerPort }}
             name: http
