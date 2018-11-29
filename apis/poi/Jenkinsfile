@@ -40,6 +40,14 @@ pipeline {
                }
            }
        }
+
+       stage('Deploy to AKS') {
+           steps {
+               dir("${env.SRC_DIR}") {
+                    sh "helm upgrade --install --force --values helm/values.yaml --set repository.image=${ACR_LOGINSERVER}/${env.APP_IMAGE_REPOSITORY_NAME},repository.tag=${env.BUILD_NUMBER},ingress.rules.endpoint.host=akstraefikopenhackipi0.eastus.cloudapp.azure.com --wait api-poi helm"
+               }
+           }
+       }
     }
 
     post {
